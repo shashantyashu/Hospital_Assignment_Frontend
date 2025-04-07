@@ -10,13 +10,13 @@ const Hero = ({ title, imageUrl }) => {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8080/api/v1/user/patient/me",
+          "https://hospital-assignment-backend.onrender.com/api/v1/user/patient/me",
           {
             withCredentials: true,
           }
         );
         const { data } = await axios.get(
-          "http://localhost:8080/api/v1/appointment/getall",
+          "https://hospital-assignment-backend.onrender.com/api/v1/appointment/getall",
           { withCredentials: true }
         );
         console.log(data);

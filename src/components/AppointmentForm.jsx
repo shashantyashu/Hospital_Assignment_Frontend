@@ -17,6 +17,7 @@ const AppointmentForm = () => {
   const [doctorLastName, setDoctorLastName] = useState("");
   const [address, setAddress] = useState("");
   const [hasVisited, setHasVisited] = useState(false);
+  const [selectedDoctorId, setSelectedDoctorId] = useState("");
 
   const departmentsArray = [
     "Pediatrics",
@@ -60,54 +61,21 @@ const AppointmentForm = () => {
     fetchDoctors();
   }, []);
 
-  // const handleAppointment = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const hasVisitedBool = Boolean(hasVisited);
-  //     const { data } = await axios.post(
-  //       "https://hospital-assignment-backend.onrender.com/api/v1/appointment/post",
-  //       {
-  //         firstName,
-  //         lastName,
-  //         email,
-  //         phone,
-  //         nic,
-  //         dob,
-  //         gender,
-  //         appointment_date: appointmentDate,
-  //         department,
-  //         doctor_firstName: doctorFirstName,
-  //         doctor_lastName: doctorLastName,
-  //         hasVisited: hasVisitedBool,
-  //         address,
-  //       },
-  //       {
-  //         withCredentials: true,
-  //         headers: { "Content-Type": "application/json" },
-  //       }
-  //     );
-  //     toast.success(data.message);
-  //     setFirstName(""),
-  //       setLastName(""),
-  //       setEmail(""),
-  //       setPhone(""),
-  //       setNic(""),
-  //       setDob(""),
-  //       setGender(""),
-  //       setAppointmentDate(""),
-  //       setDepartment(""),
-  //       setDoctorFirstName(""),
-  //       setDoctorLastName(""),
-  //       setHasVisited(""),
-  //       setAddress("");
-  //   } catch (error) {
-  //     toast.error(error.response.data.message);
-  //   }
-  // };
-
   const handleAppointment = async (e) => {
     e.preventDefault();
     try {
+      const selectedDoctor = doctors.find(
+        (doc) => doc._id === selectedDoctorId
+      );
+
+      if (!selectedDoctor) {
+        toast.error("Please select a doctor");
+        return;
+      }
+
+      const { firstName: doctorFirstName, lastName: doctorLastName } =
+        selectedDoctor;
+
       const hasVisitedBool = Boolean(hasVisited);
       const token = localStorage.getItem("patientToken");
 
@@ -256,24 +224,25 @@ const AppointmentForm = () => {
                 ))}
             </select> */}
             <select
-              value={doctorFirstName + doctorLastName} // temp hack to force re-render when selecting
+              value={selectedDoctorId}
               onChange={(e) => {
-                const selectedId = e.target.value;
-                const selectedDoctor = doctors.find(
-                  (doc) => doc._id === selectedId
-                );
-                if (selectedDoctor) {
-                  setDoctorFirstName(selectedDoctor.firstName);
-                  setDoctorLastName(selectedDoctor.lastName);
+                const id = e.target.value;
+                setSelectedDoctorId(id);
+
+                // Optional: also update first and last name if you need it elsewhere
+                const selected = doctors.find((doc) => doc._id === id);
+                if (selected) {
+                  setDoctorFirstName(selected.firstName);
+                  setDoctorLastName(selected.lastName);
                 }
               }}
               disabled={!department}
             >
               <option value="">Select Doctor</option>
               {doctors
-                .filter((doctor) => doctor.doctorDepartment === department)
+                .filter((doc) => doc.doctorDepartment === department)
                 .map((doctor) => (
-                  <option value={doctor._id} key={doctor._id}>
+                  <option key={doctor._id} value={doctor._id}>
                     {doctor.firstName} {doctor.lastName}
                   </option>
                 ))}

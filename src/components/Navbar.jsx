@@ -90,7 +90,10 @@ const Navbar = () => {
             </Link>
           </div>
           {isAuthenticated ? (
-            <button className="logoutBtn btn" onClick={handleLogout && (() => setShow(!show))}>
+            <button className="logoutBtn btn" onClick={() => {
+              handleLogout();
+              setShow(!show);
+            }}>
               LOGOUT
             </button>
           ) : (

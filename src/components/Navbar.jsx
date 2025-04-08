@@ -42,6 +42,7 @@ const Navbar = () => {
       toast.error("No active session found.");
       return;
     }
+    console.log(activeTokenName);
 
       await axios.get("https://hospital-assignment-backend.onrender.com/api/v1/user/patient/logout");
   

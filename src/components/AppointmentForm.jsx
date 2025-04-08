@@ -31,21 +31,88 @@ const AppointmentForm = () => {
   ];
 
   const [doctors, setDoctors] = useState([]);
+  // useEffect(() => {
+  //   const fetchDoctors = async () => {
+  //     const { data } = await axios.get(
+  //       "https://hospital-assignment-backend.onrender.com/api/v1/user/doctors",
+  //       { withCredentials: true }
+  //     );
+  //     setDoctors(data.doctors);
+  //     console.log(data.doctors);
+  //   };
+  //   fetchDoctors();
+  // }, []);
+
+
   useEffect(() => {
     const fetchDoctors = async () => {
+      const token = localStorage.getItem("patientToken");
       const { data } = await axios.get(
         "https://hospital-assignment-backend.onrender.com/api/v1/user/doctors",
-        { withCredentials: true }
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       setDoctors(data.doctors);
       console.log(data.doctors);
     };
     fetchDoctors();
   }, []);
+  
+
+  // const handleAppointment = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const hasVisitedBool = Boolean(hasVisited);
+  //     const { data } = await axios.post(
+  //       "https://hospital-assignment-backend.onrender.com/api/v1/appointment/post",
+  //       {
+  //         firstName,
+  //         lastName,
+  //         email,
+  //         phone,
+  //         nic,
+  //         dob,
+  //         gender,
+  //         appointment_date: appointmentDate,
+  //         department,
+  //         doctor_firstName: doctorFirstName,
+  //         doctor_lastName: doctorLastName,
+  //         hasVisited: hasVisitedBool,
+  //         address,
+  //       },
+  //       {
+  //         withCredentials: true,
+  //         headers: { "Content-Type": "application/json" },
+  //       }
+  //     );
+  //     toast.success(data.message);
+  //     setFirstName(""),
+  //       setLastName(""),
+  //       setEmail(""),
+  //       setPhone(""),
+  //       setNic(""),
+  //       setDob(""),
+  //       setGender(""),
+  //       setAppointmentDate(""),
+  //       setDepartment(""),
+  //       setDoctorFirstName(""),
+  //       setDoctorLastName(""),
+  //       setHasVisited(""),
+  //       setAddress("");
+  //   } catch (error) {
+  //     toast.error(error.response.data.message);
+  //   }
+  // };
+
   const handleAppointment = async (e) => {
     e.preventDefault();
     try {
       const hasVisitedBool = Boolean(hasVisited);
+      const token = localStorage.getItem("patientToken");
+  
       const { data } = await axios.post(
         "https://hospital-assignment-backend.onrender.com/api/v1/appointment/post",
         {
@@ -64,10 +131,13 @@ const AppointmentForm = () => {
           address,
         },
         {
-          withCredentials: true,
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
+  
       toast.success(data.message);
       setFirstName(""),
         setLastName(""),
@@ -77,15 +147,16 @@ const AppointmentForm = () => {
         setDob(""),
         setGender(""),
         setAppointmentDate(""),
-        setDepartment(""),
+        setDepartment("Pediatrics"),
         setDoctorFirstName(""),
         setDoctorLastName(""),
-        setHasVisited(""),
+        setHasVisited(false),
         setAddress("");
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error?.response?.data?.message || "Failed to make appointment");
     }
   };
+  
 
   return (
     <>

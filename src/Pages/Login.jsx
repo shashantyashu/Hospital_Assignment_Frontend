@@ -15,27 +15,52 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    try {
-      await axios
-        .post(
-          "https://hospital-assignment-backend.onrender.com/api/v1/user/login",
-          { email, password, confirmPassword, role: "Patient" },
-          {
-            withCredentials: true,
-            headers: { "Content-Type": "application/json" },
-          }
-        )
-        .then((res) => {
-          toast.success(res.data.message);
-          setIsAuthenticated(true);
-          navigateTo("/");
-          setEmail("");
-          setPassword("");
-          setConfirmPassword("");
-        });
-    } catch (error) {
-      toast.error(error.response.data.message);
-    }
+  //   try {
+  //     await axios
+  //       .post(
+  //         "https://hospital-assignment-backend.onrender.com/api/v1/user/login",
+  //         { email, password, confirmPassword, role: "Patient" },
+  //         {
+  //           withCredentials: true,
+  //           headers: { "Content-Type": "application/json" },
+  //         }
+  //       )
+  //       .then((res) => {
+  //         toast.success(res.data.message);
+  //         setIsAuthenticated(true);
+  //         navigateTo("/");
+  //         setEmail("");
+  //         setPassword("");
+  //         setConfirmPassword("");
+  //       });
+  //   } catch (error) {
+  //     toast.error(error.response.data.message);
+  //   }
+
+  try {
+    const { data } = await axios.post(
+      "https://hospital-assignment-backend.onrender.com/api/v1/user/login",
+      { email, password, confirmPassword, role: "Patient" },
+      {
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+  
+    // ✅ Save the token in localStorage
+    localStorage.setItem(data.tokenName, data.token);
+    
+    toast.success(data.message);
+    setIsAuthenticated(true);
+    navigateTo("/");
+  
+    // Clear form fields
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+  } catch (error) {
+    toast.error(error.response?.data?.message || "Login failed");
+  }
+
   };
 
   if (isAuthenticated) {

@@ -9,19 +9,52 @@ const Navbar = () => {
   const [show, setShow] = useState(false);
   const { isAuthenticated, setIsAuthenticated } = useContext(Context);//Context
 
+  // const handleLogout = async () => {
+  //   await axios
+  //     .get("https://hospital-assignment-backend.onrender.com/api/v1/user/patient/logout", {
+  //       withCredentials: true,
+  //     })
+  //     .then((res) => {
+  //       toast.success(res.data.message);
+  //       setIsAuthenticated(false);
+  //     })
+  //     .catch((err) => {
+  //       toast.error(err.response.data.message);
+  //     });
+  //     navigateTo("/");
+  // };
+
   const handleLogout = async () => {
-    await axios
-      .get("https://hospital-assignment-backend.onrender.com/api/v1/user/patient/logout", {
-        withCredentials: true,
-      })
-      .then((res) => {
-        toast.success(res.data.message);
-        setIsAuthenticated(false);
-      })
-      .catch((err) => {
-        toast.error(err.response.data.message);
-      });
+    try {
+
+      // Identify which token is stored
+    const tokenNames = ["patientToken"];//"adminToken", "doctorToken",
+    let activeTokenName = null;
+
+    for (let name of tokenNames) {
+      if (localStorage.getItem(name)) {
+        activeTokenName = name;
+        break;
+      }
+    }
+
+    if (!activeTokenName) {
+      toast.error("No active session found.");
+      return;
+    }
+
+      await axios.get("https://hospital-assignment-backend.onrender.com/api/v1/user/patient/logout");
+  
+       // ✅ Clear token from localStorage
+      localStorage.removeItem(activeTokenName);
+
+  
+      toast.success("Logged out successfully!");
+      setIsAuthenticated(false);
       navigateTo("/");
+    } catch (error) {
+      toast.error("Logout failed. Try again.");
+    }
   };
 
   const navigateTo = useNavigate();

@@ -6,30 +6,67 @@ const Hero = ({ title, imageUrl }) => {
   const [isApproved, setIsApproved] = useState([]);
   const [appointments, setAppointments] = useState([]);
 
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         "https://hospital-assignment-backend.onrender.com/api/v1/user/patient/me",
+  //         {
+  //           withCredentials: true,
+  //         }
+  //       );
+  //       const { data } = await axios.get(
+  //         "https://hospital-assignment-backend.onrender.com/api/v1/appointment/getall",
+  //         { withCredentials: true }
+  //       );
+  //       console.log(data);
+  //       setAppointments(data.appointments);
+  //       // console.log(response);
+  //       setIsApproved(response.data.user);
+  //     } catch (error) {
+  //       setIsApproved([]);
+  //       setAppointments([]);
+  //     }
+  //   };
+  //   fetchUser();
+  // }, []);
+
   useEffect(() => {
     const fetchUser = async () => {
       try {
+        const token = localStorage.getItem("patientToken");
+  
         const response = await axios.get(
           "https://hospital-assignment-backend.onrender.com/api/v1/user/patient/me",
           {
-            withCredentials: true,
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
         );
+  
         const { data } = await axios.get(
           "https://hospital-assignment-backend.onrender.com/api/v1/appointment/getall",
-          { withCredentials: true }
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
+  
         console.log(data);
         setAppointments(data.appointments);
-        // console.log(response);
         setIsApproved(response.data.user);
       } catch (error) {
+        console.error(error);
         setIsApproved([]);
         setAppointments([]);
       }
     };
+  
     fetchUser();
   }, []);
+  
 
   return (
     <>

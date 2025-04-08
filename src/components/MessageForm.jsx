@@ -9,30 +9,56 @@ const MessageForm = () => {
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
 
+  // const handleMessage = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     await axios
+  //       .post(
+  //         "https://hospital-assignment-backend.onrender.com/api/v1/message/send",
+  //         { firstName, lastName, email, phone, message },
+  //         {
+  //           withCredentials: true,
+  //           headers: { "Content-Type": "application/json" },
+  //         }
+  //       )
+  //       .then((res) => {
+  //         toast.success(res.data.message);
+  //         setFirstName("");
+  //         setLastName("");
+  //         setEmail("");
+  //         setPhone("");
+  //         setMessage("");
+  //       });
+  //   } catch (error) {
+  //     toast.error(error.response.data.message);
+  //   }
+  // };
+
   const handleMessage = async (e) => {
     e.preventDefault();
     try {
-      await axios
-        .post(
-          "https://hospital-assignment-backend.onrender.com/api/v1/message/send",
-          { firstName, lastName, email, phone, message },
-          {
-            withCredentials: true,
-            headers: { "Content-Type": "application/json" },
-          }
-        )
-        .then((res) => {
-          toast.success(res.data.message);
-          setFirstName("");
-          setLastName("");
-          setEmail("");
-          setPhone("");
-          setMessage("");
-        });
+      const { data } = await axios.post(
+        "https://hospital-assignment-backend.onrender.com/api/v1/message/send",
+        { firstName, lastName, email, phone, message },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+  
+      toast.success(data.message);
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setPhone("");
+      setMessage("");
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message || "Something went wrong");
     }
   };
+  
+  
 
   return (
     <>

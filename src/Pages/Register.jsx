@@ -18,35 +18,71 @@ const Register = () => {
 
   const navigateTo = useNavigate();
 
+  // const handleRegistration = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     await axios
+  //       .post(
+  //         "https://hospital-assignment-backend.onrender.com/api/v1/user/patient/register",
+  //         { firstName, lastName, email, phone, nic, dob, gender, password },
+  //         {
+  //           withCredentials: true,
+  //           headers: { "Content-Type": "application/json" },
+  //         }
+  //       )
+  //       .then((res) => {
+  //         toast.success(res.data.message);
+  //         setIsAuthenticated(true);
+  //         navigateTo("/");
+  //         setFirstName("");
+  //         setLastName("");
+  //         setEmail("");
+  //         setPhone("");
+  //         setNic("");
+  //         setDob("");
+  //         setGender("");
+  //         setPassword("");
+  //       });
+  //   } catch (error) {
+  //     toast.error(error.response.data.message);
+  //   }
+  // };
+
   const handleRegistration = async (e) => {
     e.preventDefault();
     try {
-      await axios
-        .post(
-          "https://hospital-assignment-backend.onrender.com/api/v1/user/patient/register",
-          { firstName, lastName, email, phone, nic, dob, gender, password },
-          {
-            withCredentials: true,
-            headers: { "Content-Type": "application/json" },
-          }
-        )
-        .then((res) => {
-          toast.success(res.data.message);
-          setIsAuthenticated(true);
-          navigateTo("/");
-          setFirstName("");
-          setLastName("");
-          setEmail("");
-          setPhone("");
-          setNic("");
-          setDob("");
-          setGender("");
-          setPassword("");
-        });
+      const res = await axios.post(
+        "https://hospital-assignment-backend.onrender.com/api/v1/user/patient/register",
+        { firstName, lastName, email, phone, nic, dob, gender, password },
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+  
+      const data = res.data;
+  
+      // ✅ Save token to localStorage
+      localStorage.setItem(data.tokenName, data.token);
+  
+      toast.success(data.message);
+      setIsAuthenticated(true);
+      navigateTo("/");
+  
+      // Clear form fields
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setPhone("");
+      setNic("");
+      setDob("");
+      setGender("");
+      setPassword("");
+  
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message || "Registration failed");
     }
   };
+  
 
   if (isAuthenticated) {
     return <Navigate to={"/"} />;

@@ -97,7 +97,7 @@ const Navbar = () => {
               LOGOUT
             </button>
           ) : (
-            <button className="loginBtn btn" onClick={goToLogin}>
+            <button className="loginBtn btn" onClick={() => {goToLogin(); setShow(!show);}}>
               LOGIN
             </button>
           )}

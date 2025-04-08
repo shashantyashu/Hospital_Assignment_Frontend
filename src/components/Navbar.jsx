@@ -49,7 +49,7 @@ const Navbar = () => {
       await axios.get("https://hospital-assignment-backend.onrender.com/api/v1/user/patient/logout");
   
        // ✅ Clear token from localStorage
-      localStorage.removeItem(activeTokenName);
+      localStorage.removeItem("patientToken");
 
   
       toast.success("Logged out successfully!");

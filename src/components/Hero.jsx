@@ -54,7 +54,7 @@ const Hero = ({ title, imageUrl }) => {
           }
         );
   
-        console.log(data);
+        // console.log(data);
         setAppointments(data.appointments);
         setIsApproved(response.data.user);
       } catch (error) {

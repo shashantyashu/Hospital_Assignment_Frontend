@@ -78,7 +78,7 @@ const Navbar = () => {
           <img src="/logo.png" alt="logo" className="logo-img" />
         </div>
         
-        <div className={show ? "navLinks showmenu" : "navLinks"}>
+        <div className={!show ? "navLinks showmenu" : "navLinks"}>
         
           <div className="links">
             <Link to={"/"} onClick={() => setShow(!show)}>

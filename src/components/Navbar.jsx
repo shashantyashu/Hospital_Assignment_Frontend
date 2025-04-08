@@ -28,23 +28,21 @@ const Navbar = () => {
     try {
 
       // Identify which token is stored
-    const tokenNames = ["patientToken"];//"adminToken", "doctorToken",
-    let activeTokenName = null;
+    // const tokenNames = ["patientToken"];//"adminToken", "doctorToken",
+    // let activeTokenName = null;
 
-    for (let name of tokenNames) {
-      if (localStorage.getItem(name)) {
-        activeTokenName = name;
-        break;
-      }
-    }
+    // for (let name of tokenNames) {
+    //   if (localStorage.getItem(name)) {
+    //     activeTokenName = name;
+    //     break;
+    //   }
+    // }
 
-    if (!activeTokenName) {
-      toast.error("No active session found.");
-      return;
-    }
+    // if (!activeTokenName) {
+    //   toast.error("No active session found.");
+    //   return;
+    // }
     const token = localStorage.getItem("patientToken");
-    console.log(token);
-    console.log(activeTokenName);
 
       await axios.get("https://hospital-assignment-backend.onrender.com/api/v1/user/patient/logout",{
         headers: {

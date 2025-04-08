@@ -43,7 +43,6 @@ const AppointmentForm = () => {
   //   fetchDoctors();
   // }, []);
 
-
   useEffect(() => {
     const fetchDoctors = async () => {
       const token = localStorage.getItem("patientToken");
@@ -60,7 +59,6 @@ const AppointmentForm = () => {
     };
     fetchDoctors();
   }, []);
-  
 
   // const handleAppointment = async (e) => {
   //   e.preventDefault();
@@ -112,7 +110,7 @@ const AppointmentForm = () => {
     try {
       const hasVisitedBool = Boolean(hasVisited);
       const token = localStorage.getItem("patientToken");
-  
+
       const { data } = await axios.post(
         "https://hospital-assignment-backend.onrender.com/api/v1/appointment/post",
         {
@@ -137,7 +135,7 @@ const AppointmentForm = () => {
           },
         }
       );
-  
+
       toast.success(data.message);
       setFirstName(""),
         setLastName(""),
@@ -153,10 +151,11 @@ const AppointmentForm = () => {
         setHasVisited(false),
         setAddress("");
     } catch (error) {
-      toast.error(error?.response?.data?.message || "Failed to make appointment");
+      toast.error(
+        error?.response?.data?.message || "Failed to make appointment"
+      );
     }
   };
-  
 
   return (
     <>
@@ -235,7 +234,7 @@ const AppointmentForm = () => {
                 );
               })}
             </select>
-            <select
+            {/* <select
               value={`${doctorFirstName} ${doctorLastName}`}
               onChange={(e) => {
                 const [firstName, lastName] = e.target.value.split(" ");
@@ -252,6 +251,29 @@ const AppointmentForm = () => {
                     value={`${doctor.firstName} ${doctor.lastName}`}
                     key={index}
                   >
+                    {doctor.firstName} {doctor.lastName}
+                  </option>
+                ))}
+            </select> */}
+            <select
+              value={doctorFirstName + doctorLastName} // temp hack to force re-render when selecting
+              onChange={(e) => {
+                const selectedId = e.target.value;
+                const selectedDoctor = doctors.find(
+                  (doc) => doc._id === selectedId
+                );
+                if (selectedDoctor) {
+                  setDoctorFirstName(selectedDoctor.firstName);
+                  setDoctorLastName(selectedDoctor.lastName);
+                }
+              }}
+              disabled={!department}
+            >
+              <option value="">Select Doctor</option>
+              {doctors
+                .filter((doctor) => doctor.doctorDepartment === department)
+                .map((doctor) => (
+                  <option value={doctor._id} key={doctor._id}>
                     {doctor.firstName} {doctor.lastName}
                   </option>
                 ))}

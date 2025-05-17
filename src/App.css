@@ -1,4 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 * {
   margin: 0;
   padding: 0;
@@ -593,6 +596,7 @@ input[type="time"]:before {
   margin-right: 0.5em;
 }
 .logo-img{
+  height: 50px;
   width: 150px;
 }
 footer .logo-img{

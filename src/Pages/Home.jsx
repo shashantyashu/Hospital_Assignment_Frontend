@@ -8,17 +8,15 @@ import { Context } from "../main";
 const Home = () => {
   const { isAuthenticated } = useContext(Context);
   return (
-    <>
+    <div className="space-y-8">
       <Hero
-        title={
-          "Welcome to ZeeCare Medical Institute | Your Trusted Healthcare Provider"
-        }
-        imageUrl={"/hero.png"}
+        title="Welcome to NovaCare Hospital | Your Trusted Healthcare Provider"
+        imageUrl="/img2.jpg"
       />
-      <Biography imageUrl={"/about.png"} />
+      <Biography imageUrl="/img_bio1.jpg" />
       <Departments />
-      {isAuthenticated && <MessageForm />}      
-    </>
+      {isAuthenticated && <MessageForm />}
+    </div>
   );
 };
 

@@ -6,10 +6,10 @@ const AboutUs = () => {
   return (
     <>
       <Hero
-        title={"Learn More About Us | ZeeCare Medical Institute"}
-        imageUrl={"/about.png"}
+        title={"Learn More About Us | NovaCare Hospital"}
+        imageUrl={"/img4.jpg"}
       />
-      <Biography imageUrl={"/whoweare.png"} />
+      <Biography imageUrl={"/img_bio2.jpg"} />
     </>
   );
 };

@@ -1,61 +1,40 @@
 import React, { useContext, useEffect } from "react";
-import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./Pages/Home";
-import Appointment from "./Pages/Appointment";
-import AboutUs from "./Pages/AboutUs";
-import Register from "./Pages/Register";
-import Footer from "./components/Footer";
-import Navbar from "./components/Navbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { Context } from "./main";
+import Home from "./Pages/Home";
+import Appointment from "./Pages/Appointment";
+import AboutUs from "./Pages/AboutUs";
+import Register from "./Pages/Register";
 import Login from "./Pages/Login";
-const App = () => {
-  const { isAuthenticated, setIsAuthenticated, setUser } =
-    useContext(Context);
+import Footer from "./components/Footer";
+import Navbar from "./components/Navbar";
 
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         "https://hospital-assignment-backend.onrender.com/api/v1/user/patient/me",
-  //         {
-  //           withCredentials: true,
-  //         }
-  //       );
-  //       // console.log(response);
-  //       setIsAuthenticated(true);
-  //       setUser(response.data.user);
-  //     } catch (error) {
-  //       setIsAuthenticated(false);
-  //       setUser({});
-  //     }
-  //   };
-  //   fetchUser();
-  // }, [isAuthenticated]);
+const App = () => {
+  const { isAuthenticated, setIsAuthenticated, setUser } = useContext(Context);
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const token = localStorage.getItem("patientToken");
-  
+
         if (!token) {
           setIsAuthenticated(false);
           setUser({});
           return;
         }
-  
+
         const response = await axios.get(
           "https://hospital-assignment-backend.onrender.com/api/v1/user/patient/me",
+          // { withCredentials: true }
           {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }
         );
-  
         setIsAuthenticated(true);
         setUser(response.data.user);
       } catch (error) {
@@ -63,9 +42,8 @@ const App = () => {
         setUser({});
       }
     };
-  
     fetchUser();
-  }, []);
+  }, []);//isAuthenticated
 
   return (
     <>

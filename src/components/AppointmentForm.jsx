@@ -110,7 +110,7 @@ const AppointmentForm = () => {
   };
 
   return (
-    <div className="container my-5 p-5">
+    <div className="container my-5 p-3">
       <div className="bg-white shadow rounded p-4">
         <h2 className="text-3xl font-bold text-blue-700 mb-3">Appointment Form</h2>
         <p className="text-gray-600 mb-4">Fill the form to book your appointment.</p>

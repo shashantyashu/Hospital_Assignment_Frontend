@@ -97,9 +97,6 @@ const Hero = ({ title, imageUrl }) => {
             Please login to book or see an appointment with us.
           </p>
         )}
-        <p className="mt-4 text-gray-700">
-          Please login to book or see an appointment with us.
-        </p>
         <p className="text-gray-600">
           NovaCare Hospital is a state-of-the-art facility dedicated to
           providing comprehensive healthcare services with compassion and

@@ -123,7 +123,7 @@ const AppointmentForm = () => {
                 id="firstName"
                 type="text"
                 className="form-control"
-                style={{ width: "350px" }}
+                style={{  width: window.innerWidth < 500 ? "300px" : "350px", }}
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
                 required
@@ -135,7 +135,7 @@ const AppointmentForm = () => {
                 id="lastName"
                 type="text"
                 className="form-control"
-                style={{ width: "350px" }}
+                style={{  width: window.innerWidth < 500 ? "300px" : "350px", }}
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
                 required
@@ -150,7 +150,7 @@ const AppointmentForm = () => {
                 id="email"
                 type="email"
                 className="form-control"
-                style={{ width: "350px" }}
+                style={{  width: window.innerWidth < 500 ? "300px" : "350px", }}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -162,7 +162,7 @@ const AppointmentForm = () => {
                 id="phone"
                 type="number"
                 className="form-control"
-                style={{ width: "350px" }}
+                style={{  width: window.innerWidth < 500 ? "300px" : "350px", }}
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 required
@@ -177,7 +177,7 @@ const AppointmentForm = () => {
                 id="nic"
                 type="number"
                 className="form-control"
-                style={{ width: "350px" }}
+                style={{  width: window.innerWidth < 500 ? "300px" : "350px", }}
                 value={nic}
                 onChange={(e) => setNic(e.target.value)}
                 required
@@ -189,7 +189,7 @@ const AppointmentForm = () => {
                 id="dob"
                 type="date"
                 className="form-control"
-                style={{ width: "350px" }}
+                style={{  width: window.innerWidth < 500 ? "300px" : "350px", }}
                 value={dob}
                 onChange={(e) => setDob(e.target.value)}
                 required
@@ -205,7 +205,7 @@ const AppointmentForm = () => {
                 className="form-select"
                 value={gender}
                 onChange={(e) => setGender(e.target.value)}
-                style={{ width: "350px" }}
+                style={{  width: window.innerWidth < 500 ? "300px" : "350px", }}
                 required
               >
                 <option value="">Select Gender</option>
@@ -219,7 +219,7 @@ const AppointmentForm = () => {
                 id="appointmentDate"
                 type="date"
                 className="form-control"
-                style={{ width: "350px" }}
+                style={{  width: window.innerWidth < 500 ? "300px" : "350px", }}
                 value={appointmentDate}
                 onChange={(e) => setAppointmentDate(e.target.value)}
                 required
@@ -238,7 +238,7 @@ const AppointmentForm = () => {
                   setDepartment(e.target.value);
                   setSelectedDoctorId("");
                 }}
-                style={{ width: "350px" }}
+                style={{  width: window.innerWidth < 500 ? "300px" : "350px", }}
               >
                 {departmentsArray.map((dept, idx) => (
                   <option value={dept} key={idx}>{dept}</option>
@@ -260,7 +260,7 @@ const AppointmentForm = () => {
                     setDoctorLastName(selected.lastName);
                   }
                 }}
-                style={{ width: "350px" }}
+                style={{  width: window.innerWidth < 500 ? "300px" : "350px", }}
                 disabled={!department}
               >
                 <option value="">Select Doctor</option>

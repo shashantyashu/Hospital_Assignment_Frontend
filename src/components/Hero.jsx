@@ -40,7 +40,9 @@ const Hero = ({ title, imageUrl }) => {
   return (
     <section className="container mx-auto py-12 px-4 grid md:grid-cols-2 gap-10 items-center">
       <div className="space-y-4">
-        <h1 className="text-3xl md:text-5xl font-bold text-gray-800">{title}</h1>
+        <h1 className="text-3xl md:text-5xl font-bold text-gray-800">
+          {title}
+        </h1>
         <h2 className="text-xl font-semibold text-blue-600">
           Hello{" "}
           {isApproved?.firstName
@@ -50,7 +52,8 @@ const Hero = ({ title, imageUrl }) => {
 
         <div className="mt-4">
           <h4 className="text-lg font-medium mb-2">Your Appointments:</h4>
-          {appointments.filter((a) => a.patientId === isApproved._id).length > 0 ? (
+          {appointments.filter((a) => a.patientId === isApproved._id).length >
+          0 ? (
             appointments
               .filter((a) => a.patientId === isApproved._id)
               .map((appointment, index) => {
@@ -72,10 +75,14 @@ const Hero = ({ title, imageUrl }) => {
 
                 return (
                   <div key={index} className="mb-3">
-                    <h6 className={`font-semibold ${statusClass}`}>{appointment.status}</h6>
+                    <h6 className={`font-semibold ${statusClass}`}>
+                      {appointment.status}
+                    </h6>
                     <p className="text-sm text-gray-700">
                       On {appointment.appointment_date} with{" "}
-                      {appointment.doctor.firstName} {appointment.doctor.lastName}
+                      {appointment.doctor.firstName}{" "}
+                      {appointment.doctor.lastName}{" "}
+                      <b>({appointment.department})</b>
                     </p>
                   </div>
                 );
@@ -85,19 +92,28 @@ const Hero = ({ title, imageUrl }) => {
           )}
         </div>
 
+        {!isApproved?.role && (
+          <p className="mt-4 text-gray-700">
+            Please login to book or see an appointment with us.
+          </p>
+        )}
         <p className="mt-4 text-gray-700">
           Please login to book or see an appointment with us.
         </p>
         <p className="text-gray-600">
-          ZeeCare Medical Institute is a state-of-the-art facility dedicated to providing
-          comprehensive healthcare services with compassion and expertise. Our team of
-          skilled professionals is committed to delivering personalized care tailored to
-          each patient's needs.
+          NovaCare Hospital is a state-of-the-art facility dedicated to
+          providing comprehensive healthcare services with compassion and
+          expertise. Our team of skilled professionals is committed to
+          delivering personalized care tailored to each patient's needs.
         </p>
       </div>
 
       <div className="relative">
-        <img src={imageUrl} alt="hero" className="rounded-xl shadow-md animate-fadeIn w-full" />
+        <img
+          src={imageUrl}
+          alt="hero"
+          className="rounded-xl shadow-md animate-fadeIn w-full"
+        />
         <img
           src="/Vector.png"
           alt="vector"

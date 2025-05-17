@@ -51,7 +51,7 @@ const Navbar = () => {
         show ? "block" : "hidden"
       } md:flex md:items-center md:space-x-6 space-y-4 md:space-y-0 absolute md:static top-full left-0 w-full md:w-auto bg-white md:bg-transparent p-4 md:p-0 z-50 border-t md:border-none`}
     >
-      <div className="flex flex-col md:flex-row md:items-center md:space-x-6 text-lg font-medium">
+      <div className="flex flex-col md:flex-row md:items-center md:space-x-6 text-lg font-medium space-y-[10px] md:space-y-0">
         <Link to="/" onClick={() => setShow(false)} className="hover:text-blue-600">
           Home
         </Link>
@@ -63,7 +63,7 @@ const Navbar = () => {
         </Link>
       </div>
 
-      <div className="mt-1 md:mt-0">
+      <div className="mt-lg-1 mt-md-1 mt-sm-3 mt-xs-4">
         {isAuthenticated ? (
           <button
             className="px-2 py-1 bg-red-500 text-white text-sm rounded hover:bg-red-600 transition"

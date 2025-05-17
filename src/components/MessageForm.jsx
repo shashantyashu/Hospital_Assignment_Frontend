@@ -62,7 +62,7 @@ const MessageForm = () => {
                   type="text"
                   className="form-control"
                   placeholder="First Name"
-                  style={{ width: "350px" }}
+                  style={{  width: window.innerWidth < 500 ? "300px" : "350px", }}
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   required
@@ -73,7 +73,7 @@ const MessageForm = () => {
                   type="text"
                   className="form-control"
                   placeholder="Last Name"
-                  style={{ width: "350px" }}
+                  style={{  width: window.innerWidth < 500 ? "300px" : "350px", }}
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                   required
@@ -87,7 +87,7 @@ const MessageForm = () => {
                   type="email"
                   className="form-control"
                   placeholder="Email"
-                  style={{ width: "350px" }}
+                  style={{  width: window.innerWidth < 500 ? "300px" : "350px", }}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
@@ -98,7 +98,7 @@ const MessageForm = () => {
                   type="number"
                   className="form-control"
                   placeholder="Mobile Number"
-                  style={{ width: "350px" }}
+                  style={{  width: window.innerWidth < 500 ? "300px" : "350px", }}
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   required

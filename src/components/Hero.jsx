@@ -81,8 +81,7 @@ const Hero = ({ title, imageUrl }) => {
                     <p className="text-sm text-gray-700">
                       On {appointment.appointment_date} with{" "}
                       {appointment.doctor.firstName}{" "}
-                      {appointment.doctor.lastName}{" "}
-                      <b>({appointment.department})</b>
+                      {appointment.doctor.lastName} <b>({appointment.department})</b>
                     </p>
                   </div>
                 );

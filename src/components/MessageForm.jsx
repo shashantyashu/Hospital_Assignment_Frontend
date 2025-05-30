@@ -1,20 +1,25 @@
 import axios from "axios";
-import React, { useState } from "react";
+import { useState, useContext } from "react";
 import { toast } from "react-toastify";
+import { Context } from "../main";
 
 const MessageForm = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
+  const { user } = useContext(Context);
 
   const handleMessage = async (e) => {
     e.preventDefault();
+
     try {
       const { data } = await axios.post(
         "https://hospital-assignment-backend.onrender.com/api/v1/message/send",
-        { firstName, lastName, email, phone, message },
+        {
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          phone: user.phone,
+          message,
+        },
         {
           headers: {
             "Content-Type": "application/json",
@@ -23,10 +28,6 @@ const MessageForm = () => {
       );
 
       toast.success(data.message);
-      setFirstName("");
-      setLastName("");
-      setEmail("");
-      setPhone("");
       setMessage("");
     } catch (error) {
       toast.error(error.response?.data?.message || "Something went wrong");
@@ -36,7 +37,7 @@ const MessageForm = () => {
   return (
     <div className="container my-5 p-4">
       <div className="row bg-white shadow-lg rounded overflow-hidden">
-        {/* Left: Optional Vector or Image */}
+        {/* Optional Vector */}
         <div className="col-md-4 p-0 d-none d-md-block">
           <img
             src="/Vector.png"
@@ -46,66 +47,16 @@ const MessageForm = () => {
           />
         </div>
 
-        {/* Right: Form */}
+        {/* Message Form */}
         <div className="col-md-8 px-5 py-4">
           <h2 className="text-3xl font-bold text-blue-700 mb-2">
             Send Us A Message
           </h2>
           <p className="text-gray-600 mb-4">
-            We'd love to hear from you! Please fill out the form below.
+            We'd love to hear from you! Please type your message below.
           </p>
 
           <form onSubmit={handleMessage}>
-            <div className="row mb-3">
-              <div className="col">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="First Name"
-                  style={{  width: window.innerWidth < 500 ? "300px" : "350px", }}
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="col">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Last Name"
-                  style={{  width: window.innerWidth < 500 ? "300px" : "350px", }}
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="row mb-3">
-              <div className="col">
-                <input
-                  type="email"
-                  className="form-control"
-                  placeholder="Email"
-                  style={{  width: window.innerWidth < 500 ? "300px" : "350px", }}
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="col">
-                <input
-                  type="number"
-                  className="form-control"
-                  placeholder="Mobile Number"
-                  style={{  width: window.innerWidth < 500 ? "300px" : "350px", }}
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  required
-                />
-              </div>
-            </div>
-
             <div className="mb-4">
               <textarea
                 className="form-control"

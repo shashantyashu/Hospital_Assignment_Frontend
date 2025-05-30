@@ -18,7 +18,7 @@ const Login = () => {
     try {
       const { data } = await axios.post(
         "https://hospital-assignment-backend.onrender.com/api/v1/user/login",
-        { email, password, confirmPassword, role: "Patient" },
+        { email, password, role: "Patient" },
         {
           headers: { "Content-Type": "application/json" },
         }
@@ -37,7 +37,11 @@ const Login = () => {
       setPassword("");
       setConfirmPassword("");
     } catch (error) {
-      toast.error(error.response?.data?.message || "Login failed");
+      if (error.response) {
+        toast.error(error.response.data.message || "Login failed");
+      } else {
+        toast.error("Server not responding");
+      }
     }
   };
 
@@ -61,12 +65,6 @@ const Login = () => {
         {/* Form: 2/3 of the width */}
         <div
           className="col-md-8"
-          // style={{
-          // paddingLeft: "100px",
-          // paddingRight: "60px",
-          // paddingTop: "2rem",
-          // paddingBottom: "2rem",
-          // }}
           style={{
             paddingLeft: window.innerWidth < 500 ? "20px" : "5rem",
             paddingRight: window.innerWidth < 500 ? "60px" : "1.5rem",
@@ -84,7 +82,7 @@ const Login = () => {
               <input
                 type="text"
                 className="form-control"
-                style={{ width: window.innerWidth < 500 ? "300px" : "400px", }}
+                style={{ width: window.innerWidth < 500 ? "300px" : "400px" }}
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -95,25 +93,13 @@ const Login = () => {
               <input
                 type="password"
                 className="form-control"
-                style={{  width: window.innerWidth < 500 ? "300px" : "400px", }}
+                style={{ width: window.innerWidth < 500 ? "300px" : "400px" }}
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
             </div>
-            <div className="mb-4">
-              <input
-                type="password"
-                className="form-control"
-                style={{  width: window.innerWidth < 500 ? "300px" : "400px", }}
-                placeholder="Confirm Password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-              />
-            </div>
-
             <div className="d-flex justify-content-start align-items-center gap-2 mb-3">
               <p className="mb-0 text-sm text-gray-600">Not Registered?</p>
               <Link

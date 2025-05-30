@@ -24,10 +24,6 @@ const Register = () => {
       const res = await axios.post(
         "https://hospital-assignment-backend.onrender.com/api/v1/user/patient/register",
         { firstName, lastName, email, phone, nic, dob, gender, password },
-        // {
-        //   withCredentials: true,
-        //   headers: { "Content-Type": "application/json" },
-        // }
         {
           headers: { "Content-Type": "application/json" },
         }

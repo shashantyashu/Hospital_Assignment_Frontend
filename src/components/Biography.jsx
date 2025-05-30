@@ -1,5 +1,3 @@
-import React from "react";
-
 const Biography = ({ imageUrl }) => {
   return (
     <section className="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">

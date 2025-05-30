@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -13,7 +13,7 @@ import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 
 const App = () => {
-  const { isAuthenticated, setIsAuthenticated, setUser } = useContext(Context);
+  const { setIsAuthenticated, setUser } = useContext(Context);
 
   useEffect(() => {
     const fetchUser = async () => {
